@@ -2,7 +2,7 @@ import re
 import sys
 import os
 from utils import parse_file
-from automata import Automaton
+from automata import FiniteAutomaton
 
 """Usage : python fa.py <automaton description>"""
 
@@ -21,8 +21,8 @@ def main():
         with open(file_to_open, 'r', encoding="utf8") as f:
             num_of_states, start, finish, transitions = parse_file(f)
             print(num_of_states, start, finish, transitions)
-            a = Automaton(num_of_states, start, finish, transitions)
-            word = "1100"
+            a = FiniteAutomaton(num_of_states, start, finish, transitions)
+            word = "002221111111222222222222"
             for letter in word:
                 a.step(letter)
                 print(a.current_states)
