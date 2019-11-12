@@ -129,7 +129,7 @@ class StepGUI:
                     # print success and the states which automaton is and they are final
                     self.Label1.configure(foreground="green")
                     self.Label1.configure(text="Accepted!!!Final State(s) for this word:" + str(final_states))
-
+                    self.Label1.pack(fill=X)
                     fail = False
             if fail:
                 # print fail
@@ -151,6 +151,7 @@ class StepGUI:
         # Initialize Insert GUI
         from insertgui import InsertGUI
         root = tk.Tk()
+        self.automaton.reload()
         insert_gui = InsertGUI(root, self.automaton)
         root.mainloop()
 

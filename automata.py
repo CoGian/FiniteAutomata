@@ -12,6 +12,14 @@ class FiniteAutomaton(object):
         if '@' in self.transitions[initial - 1]:
             self.do_e_transitions(initial)
 
+    # reload initial configuration
+    def reload(self):
+        self.current_states = []
+        self.current_states.append(self.initial)
+        # do e transitions
+        if '@' in self.transitions[self.initial - 1]:
+            self.do_e_transitions(self.initial)
+
     def step(self, letter):
 
         temp_current_states = []
