@@ -4,6 +4,7 @@ class FiniteAutomaton(object):
         self.num_of_states = num_of_states
         self.start = start
         self.finish = finish
+        # a list of dictionaries which have list of the states in which the automaton will go as a value
         self.transitions = transitions
         self.current_states = []
         self.current_states.append(start)

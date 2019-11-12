@@ -1,10 +1,20 @@
-import re
+try:
+    import Tkinter as tk
+except ImportError:
+    import tkinter as tk
+
+try:
+    import ttk
+    py3 = False
+except ImportError:
+    import tkinter.ttk as ttk
+    py3 = True
+
 import sys
 import os
 from utils import parse_file
 from automata import FiniteAutomaton
-
-"""Usage : python fa.py <automaton description>"""
+from insertgui import InsertGUI
 
 
 def main():
@@ -21,14 +31,14 @@ def main():
         with open(file_to_open, 'r', encoding="utf8") as f:
             num_of_states, start, finish, transitions = parse_file(f)
             print(num_of_states, start, finish, transitions)
-            a = FiniteAutomaton(num_of_states, start, finish, transitions)
-            word = "002221111111222222222222"
-            for letter in word:
-                a.step(letter)
-                print(a.current_states)
+            automaton = FiniteAutomaton(num_of_states, start, finish, transitions)
+            root = tk.Tk()
+            insert_gui = InsertGUI(root, automaton)
+            root.mainloop()
     except EnvironmentError:
         print("File not found!")
 
 
 if __name__ == '__main__':
     main()
+
