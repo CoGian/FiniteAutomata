@@ -30,7 +30,6 @@ def main():
     try:
         with open(file_to_open, 'r', encoding="utf8") as f:
             num_of_states, start, finish, transitions = parse_file(f)
-            print(num_of_states, start, finish, transitions)
             automaton = FiniteAutomaton(num_of_states, start, finish, transitions)
             root = tk.Tk()
             insert_gui = InsertGUI(root, automaton)

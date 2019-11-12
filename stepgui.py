@@ -1,9 +1,9 @@
-import sys
+
 try:
     import Tkinter as tk
 except ImportError:
     import tkinter as tk
-
+from tkinter import *
 try:
     import ttk
     py3 = False
@@ -14,6 +14,7 @@ except ImportError:
 
 class StepGUI:
     def __init__(self, master, word, automaton):
+        self.master = master
         self.word = word
         self.automaton = automaton
         '''This class configures and populates the toplevel window.
@@ -133,15 +134,17 @@ class StepGUI:
                 self.Label1.configure(foreground="red")
                 self.Label1.configure(text="Declined...")
             self.Step.place_forget()
+            Button(text='Quit', command=self.onQuit).pack(fill=X)
+            Button(text='Do you want to type an other word?', command=self.start_insert_gui).pack(fill=X)
 
-
-
-
+    def onQuit(self):
+        self.master.destroy()
 
     def start_insert_gui(self):
-        word = self.Entry1.get()
         self.master.destroy()
+        from insertgui import InsertGUI
         root = tk.Tk()
-        step_gui = StepGUI(root, word, self.automaton)
+        insert_gui = InsertGUI(root, self.automaton)
         root.mainloop()
+
 
