@@ -1,16 +1,16 @@
 class FiniteAutomaton(object):
 
-    def __init__(self, num_of_states, start, finish, transitions):
+    def __init__(self, num_of_states, initial, final_states, transitions):
         self.num_of_states = num_of_states
-        self.start = start
-        self.finish = finish
+        self.initial = initial
+        self.final_states = final_states
         # a list of dictionaries which have list of the states in which the automaton will go as a value
         self.transitions = transitions
         self.current_states = []
-        self.current_states.append(start)
+        self.current_states.append(initial)
         # do e transitions
-        if '@' in self.transitions[start - 1]:
-            self.do_e_transitions(start)
+        if '@' in self.transitions[initial - 1]:
+            self.do_e_transitions(initial)
 
     def step(self, letter):
 

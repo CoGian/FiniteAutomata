@@ -6,18 +6,18 @@ def parse_file(file):
     line = file.readline()
     num_of_states = int(re.split("[\n]", line)[0])
 
-    # read start state
+    # read initial state
     line = file.readline()
-    start = int(re.split("[\n]", line)[0])
+    initial = int(re.split("[\n]", line)[0])
 
-    # read finish states
+    # read final_states states
     line = file.readline()
-    temp_finish = re.split("[ '\'\n]", line)
-    finish = []
-    for c in temp_finish:
+    temp_final_states = re.split("[ '\'\n]", line)
+    final_states = []
+    for c in temp_final_states:
         if c is '':
             break
-        finish.append(int(c))
+        final_states.append(int(c))
 
     # read transitions
     transitions = [None] * num_of_states
@@ -40,4 +40,4 @@ def parse_file(file):
             else:
                 transitions[current_state - 1][symbol] = [next_state]
 
-    return num_of_states, start, finish, transitions
+    return num_of_states, initial, final_states, transitions

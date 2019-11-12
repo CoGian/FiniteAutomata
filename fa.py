@@ -29,8 +29,11 @@ def main():
     file_to_open = os.path.join(data_folder, file_to_read)
     try:
         with open(file_to_open, 'r', encoding="utf8") as f:
-            num_of_states, start, finish, transitions = parse_file(f)
-            automaton = FiniteAutomaton(num_of_states, start, finish, transitions)
+            # parsing of file
+            num_of_states, initial, final_states, transitions = parse_file(f)
+            # initialization of automaton
+            automaton = FiniteAutomaton(num_of_states, initial, final_states, transitions)
+            # initialize Insert GUI
             root = tk.Tk()
             insert_gui = InsertGUI(root, automaton)
             root.mainloop()

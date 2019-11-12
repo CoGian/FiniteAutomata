@@ -62,7 +62,9 @@ class InsertGUI:
 
     def start_step_gui(self):
         word = self.Entry1.get()
+        # destroy Insert GUI
         self.master.destroy()
+        # Initialize Step GUI
         root = tk.Tk()
         step_gui = StepGUI(root, word, self.automaton)
         root.mainloop()
