@@ -57,7 +57,7 @@ class StepGUI:
 
         self.Listbox1 = tk.Listbox(master)
         self.Listbox1.place(relx=0.10, rely=0.470, relheight=0.426
-                , relwidth=0.100)
+                , relwidth=0.125)
         self.Listbox1.configure(background="white")
         self.Listbox1.configure(disabledforeground="#a3a3a3")
         self.Listbox1.configure(font="TkFixedFont")
@@ -66,7 +66,13 @@ class StepGUI:
         self.Listbox1.configure(highlightcolor="black")
         self.Listbox1.configure(selectbackground="#c4c4c4")
         self.Listbox1.configure(selectforeground="black")
+
+        self.scrollbar = Scrollbar(self.Listbox1)
+        self.scrollbar.config(command=self.Listbox1.yview)
+        self.scrollbar.pack(side="right", fill="y")
+
         self.Listbox1.insert('end', *automaton.current_states)
+        self.Listbox1.config(yscrollcommand=self.scrollbar.set)
 
         self.Label2 = tk.Label(master)
         self.Label2.place(relx=0.10, rely=0.296, height=21, width=80)
