@@ -42,8 +42,6 @@ class FiniteAutomaton(object):
                     pass
                 elif '@' in self.transitions[s-1]:
                     self.do_e_transitions(s)
-        if not self.current_states:
-            print("fail")
 
     # check recursively for e transitions of a state and make them
     def do_e_transitions(self, state):

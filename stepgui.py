@@ -53,7 +53,7 @@ class StepGUI:
         self.Step.configure(highlightcolor="black")
         self.Step.configure(pady="0")
         self.Step.configure(text='''Step''')
-        self.Step.configure(command = self.onstep)
+        self.Step.configure(command = self.on_step)
 
         self.Listbox1 = tk.Listbox(master)
         self.Listbox1.place(relx=0.10, rely=0.470, relheight=0.426
@@ -106,7 +106,7 @@ class StepGUI:
         self.Label1.configure(highlightbackground="#d9d9d9")
         self.Label1.configure(highlightcolor="black")
 
-    def onstep(self):
+    def on_step(self):
         if self.word:
             # take the first letter of the word
             letter = self.word[0]
@@ -119,30 +119,27 @@ class StepGUI:
             self.Listbox1.delete(0, 'end')
             self.Listbox1.insert('end', *self.automaton.current_states)
 
-        # check if the word is accepted by automaton if there is none letter in word
-        if not self.word:
+        # check if automaton has nowhere to go after the step
+        if not self.automaton.current_states:
+            # print fail
+            self.print_fail()
+            self.change_buttons()
+        # check if the word has been accepted by automaton if there is none letter in word after the step
+        elif not self.word:
             fail = True
             final_states = []
             for state in self.automaton.current_states:
                 if state in self.automaton.final_states:
                     final_states.append(state)
                     # print success and the states which automaton is and they are final
-                    self.Label1.configure(foreground="green")
-                    self.Label1.configure(text="Accepted!!!Final State(s) for this word:" + str(final_states))
-                    self.Label1.pack(fill=X)
+                    self.print_success(final_states)
                     fail = False
             if fail:
                 # print fail
-                self.Label1.configure(foreground="red")
-                self.Label1.configure(text="Declined...")
-                self.Label1.pack(fill=X)
-            # remove step button
-            self.Step.place_forget()
-            # ask user for exit or insertion
-            Button(text='Quit', command=self.onQuit).pack(fill=X)
-            Button(text='Type new word', command=self.start_insert_gui).pack(fill=X)
+                self.print_fail()
+            self.change_buttons()
 
-    def onQuit(self):
+    def on_quit(self):
         self.master.destroy()
 
     def start_insert_gui(self):
@@ -155,4 +152,20 @@ class StepGUI:
         insert_gui = InsertGUI(root, self.automaton)
         root.mainloop()
 
+    def print_fail(self):
+        self.Label1.configure(foreground="red")
+        self.Label1.configure(text="Declined...")
+        self.Label1.pack(fill=X)
 
+
+    def print_success(self, final_states):
+        self.Label1.configure(foreground="green")
+        self.Label1.configure(text="Accepted!!!Final State(s) for this word:" + str(final_states))
+        self.Label1.pack(fill=X)
+
+    def change_buttons(self):
+        # remove step button
+        self.Step.place_forget()
+        # ask user for exit or insertion
+        Button(text='Quit', command=self.on_quit).pack(fill=X)
+        Button(text='Type new word', command=self.start_insert_gui).pack(fill=X)
