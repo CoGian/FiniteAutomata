@@ -140,7 +140,7 @@ class StepGUI:
             self.Step.place_forget()
             # ask user for exit or insertion
             Button(text='Quit', command=self.onQuit).pack(fill=X)
-            Button(text='Do you want to type an other word?', command=self.start_insert_gui).pack(fill=X)
+            Button(text='Type new word', command=self.start_insert_gui).pack(fill=X)
 
     def onQuit(self):
         self.master.destroy()
