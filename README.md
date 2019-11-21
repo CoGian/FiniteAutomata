@@ -1,6 +1,6 @@
 # FiniteAutomata
 
-Usage : python fa.py <automaton description>
+Usage : python fa.py <automaton description> <br />
 example: python fa.py dfa1.txt
   
 in dfa1.txt : <br />
